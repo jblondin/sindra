@@ -1,0 +1,30 @@
+use rules::remove_underscores;
+use regex::Regex;
+
+#[pub]
+int -> i64
+    = number:@"(?x)
+        0x(?P<hex>[_0-9A-Fa-f]+)   # hexadecimal
+        |                          # or
+        0o(?P<oct>[_0-8]+)         # octal
+        |                          # or
+        0b(?P<bin>[_0-1]+)         # binary
+        |                          # or
+        (?P<dec>[0-9][_0-9]*)      # decimal
+    "@ {?
+        if let Some(mat) = number.name("dec") {
+            i64::from_str_radix(remove_underscores(mat.as_str()).as_str(), 10)
+                .map_err(|_| "unable to parse decimal integer")
+        } else if let Some(mat) = number.name("hex") {
+            i64::from_str_radix(remove_underscores(mat.as_str()).as_str(), 16)
+                .map_err(|_| "unable to parse hexadecimal integer")
+        } else if let Some(mat) = number.name("bin") {
+            i64::from_str_radix(remove_underscores(mat.as_str()).as_str(), 2)
+                .map_err(|_| "unable to parse binary integer")
+        } else if let Some(mat) = number.name("oct") {
+            i64::from_str_radix(remove_underscores(mat.as_str()).as_str(), 8)
+                .map_err(|_| "unable to parse octal integer")
+        } else {
+            Err("unable to parse integer")
+        }
+    }
