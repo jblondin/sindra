@@ -9,12 +9,9 @@ pub mod rules;
 pub use rules::*;
 
 pub mod node;
-pub use node::Node;
+pub use node::{Node, PNode};
 
 pub mod scope;
-
-pub mod symbol;
-pub use symbol::Symbol;
 
 pub mod identifier;
 pub use identifier::Identifier;

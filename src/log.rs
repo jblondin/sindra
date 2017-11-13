@@ -28,15 +28,18 @@ impl<T: Display, O: Write, E: Write> LogListener<T, O, E> {
 
     /// Adds a log message with `LogPriority::Message` to the message buffer.
     pub fn log(&mut self, msg: T) {
+        println!("log: {}", msg);
         self.messages.push((msg, LogPriority::Message));
     }
 
     /// Adds a log message with `LogPriority::Warn` to the message buffer.
     pub fn warn(&mut self, msg: T) {
+        println!("warn: {}", msg);
         self.messages.push((msg, LogPriority::Warn));
     }
     /// Adds a log message with `LogPriority::Error` to the message buffer.
     pub fn error(&mut self, msg: T) {
+        println!("error: {}", msg);
         self.messages.push((msg, LogPriority::Error));
     }
 

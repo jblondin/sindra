@@ -47,14 +47,16 @@ impl<T: Default> Default for Scope<T> {
 /// General stack trait for an object which contains its own stack management.
 ///
 /// Handles typical `push` and `pop` operations.
-pub trait Stack: Sized {
+pub trait Stack: Sized + PartialEq {
     /// Push the current object down the stack, and create and return the new object (which
     /// maintains a stack pointer to the previous object on the stack).
     fn push(&self) -> Self;
     /// Pop the current object off the stack, and return the next object on the stack (if exists).
     fn pop(&self) -> Option<Self>;
+    /// Peek at the next object on the stack (but don't pop the current one off).
+    fn peek(&self) -> Option<Self>;
 }
-impl<T: Default> Stack for Rc<RefCell<Scope<T>>> {
+impl<T: Default + PartialEq> Stack for Rc<RefCell<Scope<T>>> {
     fn push(&self) -> Rc<RefCell<Scope<T>>> {
         Rc::new(RefCell::new(Scope::<T>::new_with_parent(Some(Rc::clone(self)))))
     }
@@ -64,17 +66,21 @@ impl<T: Default> Stack for Rc<RefCell<Scope<T>>> {
             None => None
         }
     }
+    fn peek(&self) -> Option<Rc<RefCell<Scope<T>>>> {
+        match self.borrow().parent {
+            Some(ref scope) => Some(Rc::clone(scope)),
+            None => None,
+        }
+    }
 }
 
 /// Trait for any object which has an associated scope.
 ///
 /// Provides get / set access for object's scope.
-pub trait Scoped {
-    /// Type of the scope.
-    type Scope: Default;
+pub trait Scoped<Sc: Default> {
 
     /// Accesses an `Rc` pointer to the scope (if exists).
-    fn scope(&self) -> Option<Rc<RefCell<Self::Scope>>>;
+    fn scope(&self) -> Option<Rc<RefCell<Sc>>>;
     /// Ses the `Rc` pointer to the scope, or `None` if no scope should exist.
-    fn set_scope(&mut self, Option<Rc<RefCell<Self::Scope>>>);
+    fn set_scope(&mut self, Option<Rc<RefCell<Sc>>>);
 }
