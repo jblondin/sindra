@@ -9,7 +9,7 @@ pub mod rules;
 pub use rules::*;
 
 pub mod node;
-pub use node::{Node, PNode};
+pub use node::Node;
 
 pub mod scope;
 
