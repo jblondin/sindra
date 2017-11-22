@@ -4,9 +4,13 @@ use std::fmt::Display;
 use std::io::Write;
 
 /// Log Priority level.
-enum LogPriority {
+#[derive(Debug, Clone, PartialEq)]
+pub enum LogPriority {
+    /// Non-error log output
     Message,
+    /// Warning-level log output
     Warn,
+    /// Error-level log output
     Error
 }
 /// Log listener object for accepting log messages of type `T`, buffering them, and outputting them
@@ -37,6 +41,7 @@ impl<T: Display, O: Write, E: Write> LogListener<T, O, E> {
         println!("warn: {}", msg);
         self.messages.push((msg, LogPriority::Warn));
     }
+
     /// Adds a log message with `LogPriority::Error` to the message buffer.
     pub fn error(&mut self, msg: T) {
         println!("error: {}", msg);
@@ -44,8 +49,9 @@ impl<T: Display, O: Write, E: Write> LogListener<T, O, E> {
     }
 
     /// Flushes the current message buffer, printing out the current contents to the output and
-    /// error streams.
-    pub fn flush(&mut self) {
+    /// error streams. Returns the highest priority log message that was outputted.
+    pub fn flush(&mut self) -> Option<LogPriority> {
+        let mut highest_prio = None;
         for (msg, prio) in self.messages.drain(..) {
             match prio {
                 LogPriority::Message => {
@@ -55,7 +61,9 @@ impl<T: Display, O: Write, E: Write> LogListener<T, O, E> {
                     writeln!(self.cerr, "{}", msg).unwrap();
                 }
             }
+            highest_prio = Some(prio);
         }
+        highest_prio
     }
 }
 
