@@ -17,6 +17,12 @@ pub trait Coerce<T: Type>: Value {
 
 /// Trait for type casting of values.
 pub trait Cast<T: Type>: Value {
-    /// Case a value to the target type (should return unchanged value if case is not possible).
+    /// Cast a value to the target type (should return unchanged value if case is not possible).
     fn cast(self, dest_ty: T) -> Self;
+}
+
+/// Trait for extracting rust value (of type T) from Value type.
+pub trait Extract<T>: Value {
+    /// Extract the value, returning an `Err` if the Value is of the wrong variant.
+    fn extract(&self) -> Result<T, String>;
 }
