@@ -64,7 +64,7 @@ lazy_static! {
 /// Interface method for `rustpeg` files to use the string regex.
 pub fn match_str_ext(input: &str, pos: usize) -> Option<(usize, Captures)> {
     match STRING_REGEX_ANC.captures(&input[pos..]) {
-        Some(caps) => Some((caps.get(0).unwrap().as_str().len(), caps)),
+        Some(caps) => Some((pos + caps.get(0).unwrap().as_str().len(), caps)),
         None => None
     }
 }
