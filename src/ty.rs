@@ -29,4 +29,6 @@ pub trait Typed<T: Type> {
     /// Set (or unset if passing `None`) the promotion Type. Default to `set_type()` if not
     /// implemented.
     fn set_promote_type(&mut self, ty: Option<T>) { self.set_type(ty) }
+    /// Retrieve promoted type, if any type is set.
+    fn promoted(&self) -> Option<T>;
 }

@@ -10,13 +10,13 @@ use Type;
 pub trait Value: Clone + Debug + PartialEq + Display {}
 
 /// Trait for type coercions for values.
-pub trait Coerce<T: Type>: Value {
+pub trait Coerce<T: Type> {
     /// Coerce a value to target type, depending on the value of the option.
     fn coerce(self, dest_ty: Option<T>) -> Self;
 }
 
 /// Trait for type casting of values.
-pub trait Cast<T: Type>: Value {
+pub trait Cast<T: Type> {
     /// Cast a value to the target type (should return unchanged value if case is not possible).
     fn cast(self, dest_ty: T) -> Self;
 }
