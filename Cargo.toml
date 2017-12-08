@@ -1,7 +1,10 @@
 [package]
 name = "sindra"
+description = "A library to help facilitate programming language development"
 version = "0.1.0"
 authors = ["Jamie Blondin <jblondin@gmail.com>"]
+license-file = "LICENSE"
+repository = "https://github.com/jblondin/sindra"
 
 [build-dependencies]
 wee-peg = "0.5"
