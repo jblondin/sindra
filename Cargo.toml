@@ -4,9 +4,8 @@ version = "0.1.0"
 authors = ["Jamie Blondin <jblondin@gmail.com>"]
 
 [build-dependencies]
-peg = { path = "../rust-peg" }
+wee-peg = "0.5"
 
 [dependencies]
 regex = "0.2"
 lazy_static = "0.2"
-
