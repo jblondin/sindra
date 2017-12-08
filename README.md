@@ -1,6 +1,7 @@
 # Sindra
 
 [![Build Status](https://travis-ci.org/jblondin/sindra.svg?branch=master)](https://travis-ci.org/jblondin/sindra)
+[![Documentation](https://docs.rs/sindra/badge.svg)](https://docs.rs/sindra/badge.svg)
 
 Sindra is a library for developing programming languages. It contains several useful structs, traits, methods and [PEG](https://github.com/jblondin/rust-peg) rules for implementing new programming languages.
 
@@ -23,7 +24,7 @@ Sindra currently contains the following features:
  - Binary and unary operator traits
  - Framework for creation of an annotated heterogeneous abstract syntax tree
  - Logging structs for compiler error reporting
- 
+
 ## Future work
 There are several features that are planned for future implementation, including:
  - Span handling (keeping track of the original location in the source file for abstract syntax tree nodes)
@@ -31,4 +32,3 @@ There are several features that are planned for future implementation, including
  - Framework and tools for creating the typical interpreter and compiler binaries for a given language
  - A more unified and easy-to-understand type inteference / coercion / promotion system
  - Reusable implementation of common language features like infix / prefix expression handling
- 
