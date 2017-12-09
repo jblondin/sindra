@@ -1,7 +1,7 @@
 # Sindra
 
 [![Build Status](https://travis-ci.org/jblondin/sindra.svg?branch=master)](https://travis-ci.org/jblondin/sindra)
-[![Documentation](https://docs.rs/sindra/badge.svg)](https://docs.rs/sindra/badge.svg)
+[![Documentation](https://docs.rs/sindra/badge.svg)](https://docs.rs/sindra)
 
 Sindra is a library for developing programming languages. It contains several useful structs, traits, methods and [PEG](https://github.com/jblondin/rust-peg) rules for implementing new programming languages.
 
